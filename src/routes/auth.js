@@ -59,4 +59,9 @@ router.post('/signin',async (req,res)=>{
     }
 });
 
+router.post('/signout',async (req,res)=>{
+    await res.cookie("token",null,{expiresIn: new Date(Date.now)});
+    res.send("user logged out");
+}); 
+
 module.exports = router;

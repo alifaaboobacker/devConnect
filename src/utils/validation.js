@@ -19,7 +19,20 @@ const validateSignupData=(req)=>{
     }
 
 };
+const validateProfileEditData=(req)=>{
+    const allowedEditFields=['firstName','lastName','age','gender','photoUrl','skills','about'];
+    const isAllow=Object.keys(req.body).every(field => allowedEditFields.includes(field));
+    if(isAllow){
+        if (req.body.about && req.body.about.length > 100) {
+            throw new Error("About can only be 100 characters long");
+        }
 
+    }
+    else{
+        throw new Error("Invalid edit request.")
+    }
+};
 module.exports={
     validateSignupData,
+    validateProfileEditData
 }
