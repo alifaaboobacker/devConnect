@@ -3,6 +3,7 @@ const User=require('../models/user');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const {validateSignupData}=require('../utils/validation');
+
 const router=express.Router();
 
 router.post('/signup',async (req,res)=>{
@@ -42,11 +43,16 @@ router.post('/signin',async (req,res)=>{
             throw new Error("Wrong credentials");
         }
 
-        const isPassword = await bcrypt.compare(password,user.password);
-        if(!isPassword){
+        const isPassword = await user.verifyPassword(password);
+        if(isPassword){
+           const token =await user.getJwt();
+           res.cookie("token",token);
+            res.send("User logged in");
+        }
+        else{
             throw new Error("Wrong credentials");
         }
-        res.send("User logged in");
+        
     }
     catch(err){
         res.status(400).send(`${err}`)

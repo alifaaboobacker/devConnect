@@ -1,11 +1,14 @@
 const express=require('express');
 const dataConnect=require('./config/database.js');
-const authRouter=require('./routes/auth')
+const authRouter=require('./routes/auth');
+const profileRouter=require('./routes/profile');
+const cookieParser=require('cookie-parser');
 app=express()
 
 app.use(express.json());
-// app.use(express.cookies())
+app.use(cookieParser());
 app.use('/',authRouter);
+app.use('/',profileRouter);
 
 
 dataConnect()
