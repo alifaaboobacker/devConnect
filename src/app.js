@@ -1,12 +1,18 @@
 const express=require('express');
+const dataConnect=require('./config/database.js');
+const authRouter=require('./routes/auth')
 app=express()
-app.use('/start',(req,res)=>{
-    res.send("Hi from start");
-});
 
-app.use('/',(req,res)=>{
-    res.send("Hi from dashboard");
-});
+app.use(express.json());
+// app.use(express.cookies())
+app.use('/',authRouter);
 
 
-app.listen(7777);
+dataConnect()
+.then(()=>{
+    console.log("database connected")
+    appusers=app.listen(7777);
+    console.log("listening");
+}).catch((err)=>{
+    console.log("Database is not connected!!");
+})
