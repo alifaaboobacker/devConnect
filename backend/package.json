@@ -1,0 +1,25 @@
+{
+  "name": "devconnect",
+  "version": "1.0.0",
+  "description": "An application to connect different developers",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "reactjs",
+    "js"
+  ],
+  "author": "Alifa Aboobacker",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.1",
+    "validator": "^13.12.0"
+  }
+}
