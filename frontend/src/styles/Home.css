@@ -1,0 +1,123 @@
+/* src/pages/Home.css */
+html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100%; /* Ensure full height */
+    overflow: hidden; /* Prevent scrolling */
+  }
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 20px;
+    background-image: url('../assets/developer.jpg'); 
+    background-size: cover;  /* Cover the entire area */
+    background-position: center; /* Center the background image */
+    color: white;  /* Set the text color to white */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+   /* Optional: add a translucent background to the header */
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    color: white; /* Ensure the header text is also white */
+  }
+  
+  nav {
+    display: flex;
+  }
+  .content{
+    margin-top: -30vh;
+  }
+  .login-button, .signup-button {
+    padding: 10px 15px;
+    background-color: transparent;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+    border: 1px solid white;
+  }
+  .login-button:hover, .signup-button:hover{
+    background-color:#110636;
+    color: white;
+    font-weight: bold;
+  }
+  .login-button {
+   
+    color: white; /* Change color to white */
+   /* Optional: Add a border */
+  }
+  
+  .signup-button {
+    background-color: #007bff; /* You can keep this or change to white */
+    color: white;
+    background-color: transparent;
+  }
+
+  
+  .main-content {
+    text-align: center;
+    margin: auto;
+  }
+  
+  /* .cta-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+  } */
+  
+  .footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    width:100%;
+    position: fixed;
+    bottom:0px;
+  }
+  
+  .next-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .feedback {
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: add a white background for the feedback form */
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px; /* Adjust as needed */
+  }
+  
+  .feedback label {
+    color: #333; /* Label color */
+  }
+  
+  .feedback input, .feedback textarea {
+    width: 100%; /* Full width */
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .footer {
+    color: white; /* Set footer text color to white */
+  }
+  
