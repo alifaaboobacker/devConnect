@@ -15,18 +15,29 @@ router.post("/request/send/:status/:recieverId",userAuth,async (req,res)=>{
         if(!allowedStatus.includes(status)){
             throw new Error("Status is not valid.")
         }
-        const request = connectionRequest.findOne(
-            {$or:[{senderId,recieverId},{sender:recieverId,reciever:senderId}]
+        const request = await ConnectionRequest.findOne({
+            $or: [
+                { sender: senderId, reciever: recieverId },
+                { sender: recieverId, reciever: senderId }
+            ]
         });
+        
+      
         
         if(request){
             throw new Error("Request already exist");
         }
         const connectionRequest = new ConnectionRequest(
-            senderId,recieverId,status
+            {
+                sender:senderId,
+                reciever:recieverId,
+                status:status
+            }
         );
         await connectionRequest.save();
-        res.send("Connection request had send successfully");
+        res.json({message:"Connection request had send successfully",
+            data:connectionRequest,
+    });
 
     }
     catch(err){
@@ -36,6 +47,38 @@ router.post("/request/send/:status/:recieverId",userAuth,async (req,res)=>{
 
 });
 
+router.post('/request/review/:status/:requestId',userAuth,async (req,res)=>{
+    try{
+        const recieverId=req.user._id
+        console.log(recieverId)
+        const {status,requestId}=req.params;
+        allowedStatus=['rejected','accepted'];
+        if(!allowedStatus.includes(status))
+        {
+            throw new Error("Status is invalid");
+        }
+        const data = await ConnectionRequest.findOne({
+            _id:requestId,
+            reciever:recieverId,
+            status:"interested"
+        }).populate("sender",["firstName","lastName","about","age","gender"]);
+        console.log(data);
+        if(!data){
+            throw new Error("Request not found");
+        }
+        data.status=status;
+        await data.save();
+        res.json({
+            "message":`Request ${status} successfully`,
+            "data":data,
+        });
 
+        
+    }
+    catch(err){
+        res.status(400).send("Error:"+err);
+    }
+    
+});
 
 module.exports =router;

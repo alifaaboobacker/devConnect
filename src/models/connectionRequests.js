@@ -4,7 +4,8 @@ const connectionRequest = new mongoose.Schema({
     "sender":{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        index:true
+        index:true,
+        ref:User,
     },
     "reciever":{
         type:mongoose.Schema.Types.ObjectId,
@@ -22,7 +23,7 @@ const connectionRequest = new mongoose.Schema({
 
 },{timestamps:true});
 
-connectionRequest.pre("save",async function(){
+connectionRequest.pre("save",function(){
     const connection = this;
     if(connection.sender.equals(connection.reciever))
     {
