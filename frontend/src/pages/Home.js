@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import '../styles/Home.css';
 import LoginModal from '../components/LoginModal'; 
+import SignUpModal from '../components/SignUpModal'; 
 
 function Home() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoginOpen, setisLoginOpen] = useState(false);
+    const [isSignupOpen, setisSignupOpen] = useState(false);
   
     const handleLoginClick = () => {
-      setIsModalOpen(true);
+      setisLoginOpen(true);
+    };
+    const handleSignupClick = ()=>{
+      setisSignupOpen(true);
     };
   
     const handleCloseModal = () => {
-      setIsModalOpen(false);
+      if(isLoginOpen){
+        setisLoginOpen(false);
+      }
+      setisSignupOpen(false);
+      
     };
   
     return (
@@ -27,7 +36,7 @@ function Home() {
             <p>
               Join the community of developers, collaborate on projects, and enhance your skills.
             </p>
-            <button className="signup-button">Create Account</button>
+            <button className="signup-button" onClick={handleSignupClick}>Create Account</button>
           </div>
         </main>
         <footer className="footer">
@@ -35,7 +44,8 @@ function Home() {
         </footer>
   
         {/* Render the login modal */}
-        <LoginModal isOpen={isModalOpen} onClose={handleCloseModal} />
+        <LoginModal isOpen={isLoginOpen} onClose={handleCloseModal} />
+        <SignUpModal isOpen={isSignupOpen} onClose={handleCloseModal} />
       </div>
     );
   }

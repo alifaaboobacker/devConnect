@@ -1,11 +1,12 @@
-// src/components/LoginModal.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/LoginModal.css';
 
 function LoginModal({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +19,10 @@ function LoginModal({ isOpen, onClose }) {
       });
 
       if (response.ok) {
-        // Handle successful login: close the modal or redirect
         console.log('Login successful');
         onClose();
+        navigate('/user/feed');
       } else {
-        // Handle invalid login response
         const errorText = await response.text();
         setErrorMessage(errorText);
       }
@@ -41,34 +41,34 @@ function LoginModal({ isOpen, onClose }) {
           </button>
 
           <h2>Welcome Back!</h2>
+          {errorMessage && <p className="error">{errorMessage}</p>}
           <div className="form-content">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            </div>
-            <div className='form-group'>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            </div>
-            {errorMessage && <p className="error">{errorMessage}</p>}
-            <div className='buttonGroup'>
-            <button type="submit" className="login">Log In</button>
-            {/* <button type="button" onClick={onClose} className="close-button">Close</button> */}
-            </div>
-          </form>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+             
+              <div className="buttonGroup">
+                <button type="submit" className="login">Log In</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
